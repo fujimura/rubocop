@@ -64,6 +64,8 @@ module RuboCop
             return false if non_equality_operator?(operator)
           end
 
+          return false unless commutative?(lhs, operator, rhs)
+
           lhs.literal? && !rhs.literal?
         end
 
@@ -98,6 +100,12 @@ module RuboCop
 
         def non_equality_operator?(operator)
           !EQUALITY_OPERATORS.include?(operator)
+        end
+
+        def commutative?(lhs, operator, rhs)
+          return false if operator == :=== && lhs.regexp_type? && !rhs.regexp_type?
+
+          true
         end
       end
     end
