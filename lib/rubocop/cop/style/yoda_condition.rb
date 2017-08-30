@@ -103,7 +103,8 @@ module RuboCop
         end
 
         def commutative?(lhs, operator, rhs)
-          return false if operator == :=== && lhs.regexp_type? && !rhs.regexp_type?
+          return false if operator == :=== && \
+                          lhs.regexp_type? && !rhs.regexp_type?
 
           true
         end
