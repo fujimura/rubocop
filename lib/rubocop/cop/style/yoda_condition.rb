@@ -48,8 +48,6 @@ module RuboCop
 
         EQUALITY_OPERATORS = %i[== !=].freeze
 
-        NONCOMMUTATIVE_OPERATORS = %i[===].freeze
-
         def on_send(node)
           return unless yoda_condition?(node)
 
@@ -65,8 +63,6 @@ module RuboCop
           if check_equality_only?
             return false if non_equality_operator?(operator)
           end
-
-          return false if noncommutative_operator?(operator)
 
           lhs.literal? && !rhs.literal?
         end
@@ -102,10 +98,6 @@ module RuboCop
 
         def non_equality_operator?(operator)
           !EQUALITY_OPERATORS.include?(operator)
-        end
-
-        def noncommutative_operator?(operator)
-          NONCOMMUTATIVE_OPERATORS.include?(operator)
         end
       end
     end

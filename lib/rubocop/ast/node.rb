@@ -23,7 +23,8 @@ module RuboCop
       extend NodePattern::Macros
 
       # <=> isn't included here, because it doesn't return a boolean.
-      COMPARISON_OPERATORS = %i[== === != <= >= > <].freeze
+      # === isn't included here, because it's not commutative.
+      COMPARISON_OPERATORS = %i[== == != <= >= > <].freeze
 
       TRUTHY_LITERALS = %i[str dstr xstr int float sym dsym array
                            hash regexp true irange erange complex
