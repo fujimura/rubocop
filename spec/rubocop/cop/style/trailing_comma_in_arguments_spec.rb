@@ -189,6 +189,16 @@ RSpec.describe RuboCop::Cop::Style::TrailingCommaInArguments, :config do
           RUBY
         end
 
+        it 'accepts comma inside a heredoc used as a argument of method call' do
+          expect_no_offenses(<<-RUBY.strip_indent)
+            some_method(
+              some_other_method(<<-FOO, 1)
+                  foo 1, 2
+              FOO
+            )
+          RUBY
+        end
+
         it 'auto-corrects unwanted comma inside string interpolation' do
           new_source = autocorrect_source(<<-RUBY.strip_indent)
             some_method(
